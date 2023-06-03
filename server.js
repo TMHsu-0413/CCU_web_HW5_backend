@@ -11,15 +11,13 @@ const SocketIO = require('socket.io')(http, {
   }
 })
 
-const PeerServer = ExpressPeerServer(http, {
-  path: '/peerjs'
-})
+const peerServer = ExpressPeerServer(http)
 
 var users = []
 
 app.use(cors())
 app.use(express.static('emoji'))
-app.use(PeerServer)
+app.use('/peerjs', peerServer)
 
 SocketIO.on('connection', (socket) => {
 
